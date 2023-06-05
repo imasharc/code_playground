@@ -80,6 +80,26 @@ def move_file(source):
         print(f"{path} was not found.")
 
 # ===================================================
+#                       DELETE FILE
+# ===================================================
+
+
+def delete_file(path):
+    try:
+        if os.path.isfile(path):
+            os.remove(path)
+        elif os.path.isdir(path):
+            shutil.rmtree(path)
+    except FileNotFoundError:
+        print(f"{path} was not found.")
+    except PermissionError:
+        print(f"You do not have a permission to delete {path}.")
+    except OSError:
+        print(f"You cannot delete {path} using os.path.rmdir(path) function.")
+    else:
+        print(f"{path} was deleted.")
+
+# ===================================================
 #                     MAIN FUNCTION
 # ===================================================
 
@@ -90,4 +110,5 @@ path = input("Provide a path to the file: ")
 # read_file(path)
 # write_file(path)
 # copy_file(path)
-move_file(path)
+# move_file(path)
+delete_file(path)
