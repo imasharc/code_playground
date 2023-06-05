@@ -40,6 +40,16 @@ def read_file(path):
         print("This file was not found.")
 
 # ===================================================
+#                       WRITE FILE
+# ===================================================
+
+
+def write_file(path):
+    text = input("Insert text into the file: ")
+    with open(path, 'w') as file:
+        file.write(f'{text}\n')
+
+# ===================================================
 #                     MAIN FUNCTION
 # ===================================================
 
@@ -47,4 +57,5 @@ def read_file(path):
 path = input("Provide a path to the file: ")
 
 # detect_file(path)
-read_file(path)
+# read_file(path)
+write_file(path)
