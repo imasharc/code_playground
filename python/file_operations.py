@@ -28,10 +28,23 @@ def detect_file(path):
         print("This locations doesn't exist!")
 
 # ===================================================
+#                       READ FILE
+# ===================================================
+
+
+def read_file(path):
+    try:
+        with open(path) as file:
+            print(file.read())
+    except FileNotFoundError:
+        print("This file was not found.")
+
+# ===================================================
 #                     MAIN FUNCTION
 # ===================================================
 
 
 path = input("Provide a path to the file: ")
 
-detect_file(path)
+# detect_file(path)
+read_file(path)
