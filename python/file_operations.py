@@ -64,6 +64,22 @@ def copy_file(curr_path):
     shutil.copyfile(curr_path, destination)
 
 # ===================================================
+#                       MOVE FILE
+# ===================================================
+
+
+def move_file(source):
+    try:
+        destination = input("Enter the destination directory: ")
+        if os.path.exists(destination):
+            print(f"There is alreaddy a file on the {destination} path.")
+        else:
+            os.replace(source, destination)
+            print(f"{source} was moved.")
+    except FileNotFoundError:
+        print(f"{path} was not found.")
+
+# ===================================================
 #                     MAIN FUNCTION
 # ===================================================
 
@@ -73,4 +89,5 @@ path = input("Provide a path to the file: ")
 # detect_file(path)
 # read_file(path)
 # write_file(path)
-copy_file(path)
+# copy_file(path)
+move_file(path)
