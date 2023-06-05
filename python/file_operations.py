@@ -11,6 +11,7 @@ Python program to handle file operations
 # ===================================================
 
 import os
+import shutil
 
 # ===================================================
 #                     DETECT FILE
@@ -50,6 +51,19 @@ def write_file(path):
         file.write(f'{text}\n')
 
 # ===================================================
+#                       COPY FILE
+# ===================================================
+
+# copyfile() =  copies contents of a file
+# copy() =      copyfile() + permission mode + destination can be a directory
+# copy2() =     copy() + copies metadata (file’s creation and modification times)
+
+
+def copy_file(curr_path):
+    destination = input("Enter a destination file: ")
+    shutil.copyfile(curr_path, destination)
+
+# ===================================================
 #                     MAIN FUNCTION
 # ===================================================
 
@@ -58,4 +72,5 @@ path = input("Provide a path to the file: ")
 
 # detect_file(path)
 # read_file(path)
-write_file(path)
+# write_file(path)
+copy_file(path)
