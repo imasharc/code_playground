@@ -116,6 +116,7 @@ namespace Snake
         private void Draw()
         {
             DrawGrid();
+            ScoreText.Text = $"SCORE {gameState.Score}";
         }
 
         // This method will look at the grid array in the game state and update the grid images to reflect it
