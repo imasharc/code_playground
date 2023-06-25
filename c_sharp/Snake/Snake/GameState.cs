@@ -54,7 +54,7 @@ namespace Snake
         {
             for (int row = 0; row < Rows; row++)
             {
-                for (int column = 0;  column <= Columns; column++)
+                for (int column = 0;  column < Columns; column++)
                 {
                     // Check if the grid at (row, column) is empty
                     if (Grid[row, column] == GridValue.Empty)
