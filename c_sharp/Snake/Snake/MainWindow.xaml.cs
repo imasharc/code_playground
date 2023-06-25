@@ -48,7 +48,28 @@ namespace Snake
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            // If the game is over, pressing a key should have no effect
+            if (gameState.GameOver)
+            {
+                return;
+            }
 
+            // Otherwise we check which key was pressed
+            switch (e.Key)
+            {
+                case Key.Left:
+                    gameState.ChangeDirection(Direction.Left);
+                    break;
+                case Key.Right:
+                    gameState.ChangeDirection(Direction.Right);
+                    break;
+                case Key.Up:
+                    gameState.ChangeDirection(Direction.Up);
+                    break;
+                case Key.Down:
+                    gameState.ChangeDirection(Direction.Down);
+                    break;
+            }
         }
 
         // It will add the required image controls to the GameGrid and return them in a 2D array for easy access 
