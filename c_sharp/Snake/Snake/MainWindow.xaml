@@ -30,7 +30,9 @@
                 BorderThickness="1.5"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                RenderOptions.EdgeMode="Aliased">
+                RenderOptions.EdgeMode="Aliased"
+                Loaded="Window_Loaded"
+                KeyDown="Window_KeyDown">
             <UniformGrid x:Name="GameGrid"
                          Width="400"
                          Height="400"
