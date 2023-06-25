@@ -41,9 +41,10 @@ namespace Snake
             gameState = new GameState(rows, columns);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Draw();
+            await GameLoop();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -69,6 +70,18 @@ namespace Snake
                 case Key.Down:
                     gameState.ChangeDirection(Direction.Down);
                     break;
+            }
+        }
+
+        // We can change the snake's direction but we need to move it at regular intervals
+        // for that we add an async GameLoop method
+        private async Task GameLoop()
+        {
+            while (!gameState.GameOver)
+            {
+                await Task.Delay(100);
+                gameState.Move();
+                Draw();
             }
         }
 
