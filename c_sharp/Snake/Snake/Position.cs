@@ -14,6 +14,7 @@ namespace Snake
             Column = column;
         }
 
+        // Returns the position by moving one step in the given direction
         public Position Translate(Direction direction)
         {
             return new Position(Row + direction.RowOffset, Column + direction.ColOffset);
