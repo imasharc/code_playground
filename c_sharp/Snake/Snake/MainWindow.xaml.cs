@@ -20,14 +20,35 @@ namespace Snake
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Add dictionary which maps grid values to image sources
+        // OMITTING THE TYPE AFTER THE 'NEW' KEYWORD IS POSSIBLE IN NEWER C# VERSIONS ONLY! (FOR OLDER VERSIONS - JUST WRITE THE TYPE Dictionary<GridValue, ImageSource> AGAIN 
+        private readonly Dictionary<GridValue, ImageSource> gridValueToImage = new()
+        {
+            { GridValue.Empty, Images.Empty },
+            { GridValue.Snake, Images.Body },
+            { GridValue.Food, Images.Food },
+        };
+
         private readonly int rows = 15, columns = 15;
         // This array will make it easy to access the image for a given position in the grid
         private readonly Image[,] gridImages;
+        private GameState gameState;
 
         public MainWindow()
         {
             InitializeComponent();
             gridImages = SetupGrid();
+            gameState = new GameState(rows, columns);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Draw();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
 
         // It will add the required image controls to the GameGrid and return them in a 2D array for easy access 
@@ -56,6 +77,26 @@ namespace Snake
             }
 
             return images;
+        }
+
+        private void Draw()
+        {
+            DrawGrid();
+        }
+
+        // This method will look at the grid array in the game state and update the grid images to reflect it
+        private void DrawGrid()
+        {
+            // It loops through every grid position
+            for (int row = 0; row < rows; row++)
+            {
+                for (int column = 0; column < columns; column++)
+                {
+                    // Get the GridValue at the current position and set the source for the corresponding image using our dictionary
+                    GridValue gridValue = gameState.Grid[row, column];
+                    gridImages[row, column].Source = gridValueToImage[gridValue];
+                }
+            }
         }
     }
 }
