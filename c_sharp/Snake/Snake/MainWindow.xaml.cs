@@ -121,6 +121,7 @@ namespace Snake
             Image[,] images = new Image[rows, columns];
             GameGrid.Rows = rows;
             GameGrid.Columns = columns;
+            GameGrid.Width = GameGrid.Height * (columns / (double)rows);
 
             for (int row = 0; row < rows; row++)
             {
