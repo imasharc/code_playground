@@ -48,6 +48,8 @@ namespace Snake
             await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
+            await ShowGameOver();
+            gameState = new GameState(rows, columns);
         }
 
         // When a user presses a key Window_PreviewwKeyDown is called and after that Window_KeyDown is also called
@@ -160,6 +162,13 @@ namespace Snake
                 OverlayText.Text = i.ToString();
                 await Task.Delay(500);
             }
+        }
+
+        private async Task ShowGameOver()
+        {
+            await Task.Delay(1000);
+            Overlay.Visibility = Visibility.Visible;
+            OverlayText.Text = "PRESS ANY KEY TO START";
         }
     }
 }
