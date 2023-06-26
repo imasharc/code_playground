@@ -14,6 +14,7 @@ namespace Snake
         public Direction Direction { get; private set; }
         public int Score {  get; private set; }
         public bool GameOver { get; private set; }
+        private readonly LinkedList<Direction> directionChanges = new LinkedList<Direction>();
         
         // List containing the positions currently occupied by the snake
         // LinkedList allows to add and delete from both ends of the list
@@ -116,11 +117,38 @@ namespace Snake
             snakePositions.RemoveLast();
         }
 
+        // helper method for ChangeDirection
+        // returns snake's last predetermined direction
+        private Direction GetLastDirection()
+        {
+            if (directionChanges.Count == 0)
+            {
+                return Direction;
+            }
+
+            return directionChanges.Last.Value;
+        }
+
+        // returns true if the given direction can be addded to the buffer and false otherwise
+        private bool CanChangeDirection(Direction newDirection)
+        {
+            // Buffer is considered full if there are already 2 direction changes
+            if (directionChanges.Count == 2)
+            {
+                return false;
+            }
+
+            Direction lastDirection = GetLastDirection();
+            return newDirection != lastDirection && newDirection != lastDirection.Opposite();
+        }
+
         // methods for modifying the game state
         public void ChangeDirection(Direction direction)
         {
-            // TOO SIMPLISTIC, TO BE CHANGED
-            Direction = direction;
+            if (CanChangeDirection(direction))
+            {
+               directionChanges.AddLast(direction);
+            }
         }
 
         // Check if the given position is outside the grid or not
@@ -152,6 +180,12 @@ namespace Snake
         // Move the snake one step in the current direction
         public void Move()
         {
+            if (directionChanges.Count > 0)
+            {
+                Direction = directionChanges.First.Value;
+                directionChanges.RemoveFirst();
+            }
+
             Position newHeadPosition = HeadPosition().Translate(Direction);
             GridValue hit = WillHit(newHeadPosition);
 
