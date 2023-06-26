@@ -33,6 +33,7 @@ namespace Snake
         // This array will make it easy to access the image for a given position in the grid
         private readonly Image[,] gridImages;
         private GameState gameState;
+        private bool gameRunning;
 
         public MainWindow()
         {
@@ -41,10 +42,27 @@ namespace Snake
             gameState = new GameState(rows, columns);
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private async Task RunGame()
         {
             Draw();
+            Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
+        }
+
+        // When a user presses a key Window_PreviewwKeyDown is called and after that Window_KeyDown is also called
+        private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Overlay.Visibility == Visibility.Visible)
+            {
+                e.Handled = true;
+            }
+
+            if (!gameRunning)
+            {
+                gameRunning = true;
+                await RunGame();
+                gameRunning = false;
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

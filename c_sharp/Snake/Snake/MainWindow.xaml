@@ -11,7 +11,9 @@
         Foreground="{StaticResource TextColor}"
         FontFamily="{StaticResource MainFont}"
         WindowStartupLocation="CenterScreen"
-        Icon="Assets/icon.ico">
+        Icon="Assets/icon.ico"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        KeyDown="Window_KeyDown">
     <Viewbox>
         <Grid>
             <Grid.RowDefinitions>
@@ -33,8 +35,6 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 RenderOptions.EdgeMode="Aliased"
-                Loaded="Window_Loaded"
-                KeyDown="Window_KeyDown"
                 Margin="20, 0, 20, 20">
                 <UniformGrid x:Name="GameGrid"
                          Width="400"
@@ -43,7 +43,20 @@
                          SnapsToDevicePixels="True"
                          RenderOptions.BitmapScalingMode="HighQuality">
                 </UniformGrid>
-
+            </Border>
+            <Border x:Name="Overlay"
+                    Grid.Row="1"
+                    Background="{StaticResource OverlayColor}"
+                    Width="{Binding Path=ActualWidth, ElementName=GridBorder}"
+                    Height="{Binding Path=ActualHeight, ElementName=GridBorder}"
+                    Margin="{Binding Path=Margin, ElementName=GridBorder}"
+                    RenderOptions.EdgeMode="Aliased">
+                <TextBlock x:Name="OverlayText"
+                           Text="PRESS ANY KEY TO START"
+                           FontSize="26"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"/>
             </Border>
         </Grid>
     </Viewbox>
