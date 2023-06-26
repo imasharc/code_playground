@@ -187,7 +187,7 @@ namespace Snake
             for (int i = 0; i < positions.Count; i++)
             {
                 Position position = positions[i];
-                ImageSource source = (i == 0) ? Images.DeadHead : Images.Head;
+                ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[position.Row, position.Column].Source = source;
                 await Task.Delay(50);
             }
