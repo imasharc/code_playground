@@ -29,6 +29,15 @@ namespace Snake
             { GridValue.Food, Images.Food },
         };
 
+        // if the Snake changes direction we will apply a rotation to "it's eyes"
+        private readonly Dictionary<Direction, int> directionToRotation = new()
+        {
+            { Direction.Up, 0 },
+            { Direction.Right, 90 },
+            { Direction.Down, 180 },
+            { Direction.Left, 270 }
+        };
+
         private readonly int rows = 15, columns = 15;
         // This array will make it easy to access the image for a given position in the grid
         private readonly Image[,] gridImages;
@@ -121,7 +130,9 @@ namespace Snake
                     Image image = new Image
                     {
                         // Initialy we want source to be the Empty image asset
-                        Source = Images.Empty
+                        Source = Images.Empty,
+                        // this makes the images rootate around the center point
+                        RenderTransformOrigin = new Point(0.5, 0.5)
                     };
 
                     // We store this image in the 2D array
@@ -137,6 +148,7 @@ namespace Snake
         private void Draw()
         {
             DrawGrid();
+            DrawSnakeHead();
             ScoreText.Text = $"SCORE {gameState.Score}";
         }
 
@@ -151,8 +163,21 @@ namespace Snake
                     // Get the GridValue at the current position and set the source for the corresponding image using our dictionary
                     GridValue gridValue = gameState.Grid[row, column];
                     gridImages[row, column].Source = gridValueToImage[gridValue];
+                    // reset the RenderTransform of the images
+                    // this ensures that the only rotated image is the one with the snake's head
+                    gridImages[row, column].RenderTransform = Transform.Identity;
                 }
             }
+        }
+
+        private void DrawSnakeHead()
+        {
+            Position headPosition = gameState.HeadPosition();
+            Image image = gridImages[headPosition.Row, headPosition.Column];
+            image.Source = Images.Head;
+
+            int rotation = directionToRotation[gameState.Direction];
+            image.RenderTransform = new RotateTransform(rotation);
         }
 
         private async Task ShowCountDown()
