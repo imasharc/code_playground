@@ -107,7 +107,7 @@ namespace Snake
             Grid[position.Row, position.Column] = GridValue.Snake;
         }
 
-        public void RemoveTail(Position position)
+        public void RemoveTail()
         {
             // Get the current tail position
             Position tail = snakePositions.Last.Value;
@@ -195,7 +195,7 @@ namespace Snake
             }
             else if (hit == GridValue.Empty)
             {
-                RemoveTail(TailPosition());
+                RemoveTail();
                 AddHead(newHeadPosition);
             }
             else if (hit == GridValue.Food)
