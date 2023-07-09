@@ -1,0 +1,18 @@
+{
+  "name": "three_js",
+  "version": "1.0.0",
+  "description": "This is basic three.js project done accordingly to the guide (https://threejs.org/docs/#manual/en/introduction/Installation)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.154.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.2"
+  }
+}
