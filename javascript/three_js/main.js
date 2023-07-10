@@ -8,7 +8,7 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  75,
+  45,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -21,8 +21,22 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 const axesHelper = new THREE.AxesHelper(3);
 scene.add(axesHelper);
 
+// adding plane
+const planeGeometry = new THREE.PlaneGeometry(30, 30);
+const planeMaterial = new THREE.MeshBasicMaterial({
+  color: 0x99bbff,
+  side: THREE.DoubleSide,
+});
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+scene.add(plane);
+plane.rotation.x = -0.5 * Math.PI;
+
+// add grid helper
+const gridHelper = new THREE.GridHelper(30);
+scene.add(gridHelper);
+
 // changing camera position in order to see the helper axes
-camera.position.set(1, 1, 5);
+camera.position.set(-20, 20, 30);
 orbit.update();
 
 // adding box
