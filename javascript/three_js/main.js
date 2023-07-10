@@ -1,4 +1,5 @@
 ﻿import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // tool that three.js uses to allocate a space on the webpage where we can further add and animate all objects
 const renderer = new THREE.WebGLRenderer();
@@ -13,12 +14,16 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
+// OrbitControls allows to add mobility to camera in order to see elements on the screen from different angles using mouse buttons
+const orbit = new OrbitControls(camera, renderer.domElement);
+
 // tool that servers as a guide by introducing 3D coordinate system
 const axesHelper = new THREE.AxesHelper(3);
 scene.add(axesHelper);
 
 // changing camera position in order to see the helper axes
 camera.position.set(1, 1, 5);
+orbit.update();
 
 // adding box
 const boxGeometry = new THREE.BoxGeometry();
