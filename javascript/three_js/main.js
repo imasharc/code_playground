@@ -1,5 +1,9 @@
 ﻿import * as THREE from "three";
-import WebGL from "three/addons/capabilities/WebGL.js";
+
+// tool that three.js uses to allocate a space on the webpage where we can further add and animate all objects
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -9,28 +13,26 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// tool that servers as a guide by introducing 3D coordinate system
+const axesHelper = new THREE.AxesHelper(3);
+scene.add(axesHelper);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// changing camera position in order to see the helper axes
+camera.position.set(1, 1, 5);
 
-camera.position.z = 5;
+// adding box
+const boxGeometry = new THREE.BoxGeometry();
+const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const box = new THREE.Mesh(boxGeometry, boxMaterial);
+scene.add(box);
 
-function animate() {
-  requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+// rotate the cube by 0.01 radians on the X and Y axes every second
+// continuously update the rotation of the box object based on the current time (timestamp)
+function animate(time) {
+  console.log(time);
+  box.rotation.y = time / 1000;
+  box.rotation.x = time / 1000;
   renderer.render(scene, camera);
 }
 
-if (WebGL.isWebGLAvailable()) {
-  // Initiate function or other initializations here
-  animate();
-} else {
-  const warning = WebGL.getWebGLErrorMessage();
-  document.getElementById("container").appendChild(warning);
-}
+renderer.setAnimationLoop(animate);
