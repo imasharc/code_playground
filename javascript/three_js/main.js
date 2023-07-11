@@ -90,7 +90,15 @@ scene.fog = new THREE.Fog(0xffffff, 0, 200);
 
 // add imported images
 const textureLoader = new THREE.TextureLoader();
-scene.background = textureLoader.load(stars);
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+scene.background = cubeTextureLoader.load([
+  stars,
+  stars,
+  stars,
+  stars,
+  stars,
+  stars,
+]);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
