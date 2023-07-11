@@ -189,3 +189,10 @@ function animate(time) {
 }
 
 renderer.setAnimationLoop(animate);
+
+// making the canvas responsive
+window.addEventListener("resize", function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(winodw.innerWidth, window.innerHeight);
+});
