@@ -77,9 +77,13 @@ scene.add(spotLight);
 spotLight.position.set(-50, 50, 0);
 spotLight.castShadow = true;
 spotLight.angle = 0.2;
+
 // add spotlight helper
 const sLightHelper = new THREE.SpotLightHelper(spotLight);
 scene.add(sLightHelper);
+
+// add fog
+scene.fog = new THREE.Fog(0xffffff, 0, 200);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
