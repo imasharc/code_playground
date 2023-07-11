@@ -1,6 +1,9 @@
 ﻿import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
+// importing image assets
+import nebula from "./public/nebula.jpg";
+import stars from "./public/stars.jpg";
 
 // tool that three.js uses to allocate a space on the webpage where we can further add and animate all objects
 const renderer = new THREE.WebGLRenderer();
@@ -84,6 +87,10 @@ scene.add(sLightHelper);
 
 // add fog
 scene.fog = new THREE.Fog(0xffffff, 0, 200);
+
+// add imported images
+const textureLoader = new THREE.TextureLoader();
+scene.background = textureLoader.load(stars);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
