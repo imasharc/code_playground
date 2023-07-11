@@ -100,6 +100,15 @@ scene.background = cubeTextureLoader.load([
   stars,
 ]);
 
+// add a 2nd box, this time with a custom texture
+const box2Geometry = new THREE.BoxGeometry(4, 4, 4);
+const box2Material = new THREE.MeshBasicMaterial({
+  map: textureLoader.load(nebula),
+});
+const box2 = new THREE.Mesh(box2Geometry, box2Material);
+scene.add(box2);
+box2.position.set(0, 15, 10);
+
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
 orbit.update();
