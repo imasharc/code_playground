@@ -62,6 +62,7 @@ const gui = new dat.GUI();
 const options = {
   sphereColor: "#ffea00",
   wireframe: true,
+  speed: 0.01,
 };
 // options to change the color of the sphere
 gui.addColor(options, "sphereColor").onChange(function (e) {
@@ -71,10 +72,10 @@ gui.addColor(options, "sphereColor").onChange(function (e) {
 gui.add(options, "wireframe").onChange(function (e) {
   sphere.material.wireframe = e;
 });
+gui.add(options, "speed", 0.01);
 
 // attributes for making the sphere/ball bounce
 let step = 0;
-let speed = 0.01;
 
 // continuously update the rotation of the box object based on the current time (timestamp)
 // By dividing the time by 1000, it converts the time from milliseconds to seconds
@@ -87,7 +88,7 @@ function animate(time) {
   box.rotation.x = time / 1000;
 
   // bouncing the sphere/ball
-  step += speed;
+  step += options.speed;
   sphere.position.y = 10 * Math.abs(Math.sin(step));
 
   renderer.render(scene, camera);
