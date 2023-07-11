@@ -1,9 +1,13 @@
 ﻿import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // importing image assets
 import nebula from "./public/nebula.jpg";
 import stars from "./public/stars.jpg";
+
+// get path to the 3D model
+const tomato = new URL("./public/tomato.glb", import.meta.url);
 
 // tool that three.js uses to allocate a space on the webpage where we can further add and animate all objects
 const renderer = new THREE.WebGLRenderer();
@@ -119,6 +123,22 @@ const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const box = new THREE.Mesh(boxGeometry, boxMaterial);
 scene.add(box);
 
+// load 3D model
+const assetLoader = new GLTFLoader();
+assetLoader.load(
+  tomato.href,
+  function (gltf) {
+    const model = gltf.scene;
+    model.scale.setScalar(50);
+    scene.add(model);
+    model.position.set(-12, 4, 10);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
 // dat.GUI controls
 const gui = new dat.GUI();
 const options = {
@@ -149,7 +169,7 @@ let step = 0;
 // By dividing the time by 1000, it converts the time from milliseconds to seconds
 // The resulting value is then assigned to the rotation.y and rotation.x properties of the box, causing it to rotate over time.
 function animate(time) {
-  console.log(time);
+  // console.log(time);
 
   // rotating the box
   box.rotation.y = time / 1000;
