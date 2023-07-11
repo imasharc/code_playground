@@ -35,6 +35,17 @@ plane.rotation.x = -0.5 * Math.PI;
 const gridHelper = new THREE.GridHelper(30);
 scene.add(gridHelper);
 
+// add sphere
+const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
+const sphereMaterial = new THREE.MeshBasicMaterial({
+  color: 0x0000ff,
+  wireframe: true,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+scene.add(sphere);
+
+sphere.position.set(-10, 10, 0);
+
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
 orbit.update();
