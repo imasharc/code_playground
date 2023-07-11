@@ -4,6 +4,8 @@ import * as dat from "dat.gui";
 
 // tool that three.js uses to allocate a space on the webpage where we can further add and animate all objects
 const renderer = new THREE.WebGLRenderer();
+// enable shadowMap in order to add shadows
+renderer.shadowMap.enabled = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -31,6 +33,8 @@ const planeMaterial = new THREE.MeshStandardMaterial({
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 scene.add(plane);
 plane.rotation.x = -0.5 * Math.PI;
+// plane receives the shadows emitted by the sphere being in front of the light source
+plane.receiveShadow = true;
 
 // add grid helper
 const gridHelper = new THREE.GridHelper(30);
@@ -45,6 +49,8 @@ const sphereMaterial = new THREE.MeshStandardMaterial({
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 sphere.position.set(-10, 10, 0);
+// sphere casts the shadows by being in front of the light source
+sphere.castShadow = true;
 
 // adding lights
 const ambientLight = new THREE.AmbientLight(0x333333);
@@ -53,9 +59,17 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff);
 scene.add(directionalLight);
 directionalLight.position.set(-20, 30, 0);
+// directional light casts the shadows by being the main source of the shadows creation
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.bottom = -12;
 
 const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
 scene.add(dLightHelper);
+
+const dLightShadowHelper = new THREE.CameraHelper(
+  directionalLight.shadow.camera
+);
+scene.add(dLightShadowHelper);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
