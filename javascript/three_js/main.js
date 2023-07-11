@@ -56,20 +56,30 @@ sphere.castShadow = true;
 const ambientLight = new THREE.AmbientLight(0x333333);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff);
-scene.add(directionalLight);
-directionalLight.position.set(-20, 30, 0);
-// directional light casts the shadows by being the main source of the shadows creation
-directionalLight.castShadow = true;
-directionalLight.shadow.camera.bottom = -12;
+// const directionalLight = new THREE.DirectionalLight(0xffffff);
+// scene.add(directionalLight);
+// directionalLight.position.set(-20, 30, 0);
+// // directional light casts the shadows by being the main source of the shadows creation
+// directionalLight.castShadow = true;
+// directionalLight.shadow.camera.bottom = -12;
 
-const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
-scene.add(dLightHelper);
+// const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
+// scene.add(dLightHelper);
 
-const dLightShadowHelper = new THREE.CameraHelper(
-  directionalLight.shadow.camera
-);
-scene.add(dLightShadowHelper);
+// const dLightShadowHelper = new THREE.CameraHelper(
+//   directionalLight.shadow.camera
+// );
+// scene.add(dLightShadowHelper);
+
+// add spotlight
+const spotLight = new THREE.SpotLight(0xffffff);
+scene.add(spotLight);
+spotLight.position.set(-50, 50, 0);
+spotLight.castShadow = true;
+spotLight.angle = 0.2;
+// add spotlight helper
+const sLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(sLightHelper);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
