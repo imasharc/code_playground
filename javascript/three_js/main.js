@@ -24,8 +24,8 @@ scene.add(axesHelper);
 
 // adding plane
 const planeGeometry = new THREE.PlaneGeometry(30, 30);
-const planeMaterial = new THREE.MeshBasicMaterial({
-  color: 0x99bbff,
+const planeMaterial = new THREE.MeshStandardMaterial({
+  color: 0xffffff,
   side: THREE.DoubleSide,
 });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -38,14 +38,24 @@ scene.add(gridHelper);
 
 // add sphere
 const sphereGeometry = new THREE.SphereGeometry(4, 50, 50);
-const sphereMaterial = new THREE.MeshBasicMaterial({
+const sphereMaterial = new THREE.MeshStandardMaterial({
   color: 0x0000ff,
-  wireframe: true,
+  wireframe: false,
 });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
-
 sphere.position.set(-10, 10, 0);
+
+// adding lights
+const ambientLight = new THREE.AmbientLight(0x333333);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff);
+scene.add(directionalLight);
+directionalLight.position.set(-20, 30, 0);
+
+const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
+scene.add(dLightHelper);
 
 // changing camera position in order to see the helper axes
 camera.position.set(-20, 20, 30);
@@ -61,7 +71,7 @@ scene.add(box);
 const gui = new dat.GUI();
 const options = {
   sphereColor: "#ffea00",
-  wireframe: true,
+  wireframe: false,
   speed: 0.01,
 };
 // options to change the color of the sphere
